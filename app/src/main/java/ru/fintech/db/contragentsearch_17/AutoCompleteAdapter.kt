@@ -63,8 +63,9 @@ class AutoCompleteAdapter (private val context: Context,
 
         override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
             if (results != null && results.count > 0) {
-                notifyDataSetChanged()
+
                 mResults = results.values as List<Organization>
+                notifyDataSetChanged()
             }
             else
                 notifyDataSetInvalidated()

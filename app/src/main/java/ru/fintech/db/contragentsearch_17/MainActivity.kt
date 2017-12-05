@@ -46,7 +46,9 @@ class MainActivity : AppCompatActivity() {
         actv.setAdapter(acListAdapter)
         actv.onItemClickListener = object: AdapterView.OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-               Log.i("12", acListAdapter.getItem(position).name)
+                if (BuildConfig.DEBUG) {
+                    Log.i("12", acListAdapter.getItem(position).name)
+                }
                 //open screen #3
                 ServiceCache.instance.cache(position)
                 val intent = Intent(this@MainActivity, ContragentDetails::class.java)

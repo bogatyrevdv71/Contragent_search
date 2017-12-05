@@ -91,11 +91,15 @@ class ContragentDetails : AppCompatActivity() {
                 details.clear()
                 details.addAll(f.entries)
                 adapter.notifyDataSetChanged()
-                Log.i("1000", v[0].name)
+                if (BuildConfig.DEBUG) {
+                    Log.i("1000", v[0].name)
+                }
                 org.data = v[0].data
             }
         })
-        Log.i("99", hid)
+        if (BuildConfig.DEBUG) {
+            Log.i("99", hid)
+        }
     }
 
 }

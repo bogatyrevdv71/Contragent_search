@@ -4,8 +4,11 @@ import android.arch.persistence.room.*
 import java.util.*
 import kotlin.collections.HashMap
 
-data class DaDataAddr (var value: String = "",
-                  var unrestricted_value: String = "")
+data class DaDataAddr (
+        @Displayed(name="Адрес")
+        var value: String? = "",
+        @Displayed(name="Полный адрес")
+                  var unrestricted_value: String? = "")
 
 
 @Target(AnnotationTarget.FIELD)
@@ -24,54 +27,72 @@ enum class DaDataType {
     LEGAL, INDIVIDUAL
 }
 
-data class DaDataMgmt (var name: String = "",
-                  var post: String = "")
+data class DaDataMgmt (
+        @Displayed(name="ФИО руководителя")
+        var name: String = "",
+        @Displayed(name="Должность руководителя")
+        var post: String = "")
 
-data class DaDataName (var full_with_opf: String? = "",
+data class DaDataName (
+        @Displayed(name="Полное наименование с ОПФ")
+        var full_with_opf: String? = "",
+        @Displayed(name="Краткое наименование с ОПФ")
                   var short_with_opf: String? = "",
+        @Displayed(name="Наименование на латинице")
                   var latin: String? = "",
+        @Displayed(name="Полное наименование")
                   var full: String= "",
+        @Displayed(name="Краткое наименование")
                   var short: String= "")
 
-data class DaDataOpf (var code: String?= "",
+data class DaDataOpf (
+        @Displayed(name="Код ОКОПФ")
+        var code: String?= "",
+        @Displayed(name="Полное название ОПФ")
                  var full: String?= "",
+        @Displayed(name="Краткое название ОПФ")
                  var short: String?= "")
 
-data class DaDataState (var actuality_date: Long?=0,
+data class DaDataState (
+        @Displayed(name="Дата актуальности сведений")
+        var actuality_date: Long?=0,
+        @Displayed(name="Дата регистрации")
                    var registration_date: Long?=0,
+        @Displayed(name="Дата ликвидации")
                    var liquidation_date: Long?=0,
+        @Displayed(name="Статус организации")
                    var status: DaDataStatus=DaDataStatus.ACTIVE)
 
 @Entity
 data class DaData (
         @Embedded(prefix="addr_")
-        var address: DaDataAddr,
+            var address: DaDataAddr,
         @Displayed(name="Количество филиалов")
-        var branch_count: Int?,
+            var branch_count: Int?,
         @Displayed(name="Тип подразделения")
-        var branch_type: DaDataBranchType?,
+            var branch_type: DaDataBranchType?,
         @Displayed(name="ИНН")
-        var inn: String,
+            var inn: String,
         @Displayed(name="КПП")
-        var kpp: String,
+            var kpp: String,
         @Displayed(name="ОГРН")
-        var ogrn: String?,
+            var ogrn: String?,
         @Displayed(name="Дата выдачи ОГРН")
-        var ogrn_date: Long?,
+            var ogrn_date: Long?,
         @PrimaryKey
-        var hid: String,
+            var hid: String,
         @Embedded(prefix="mgmt_")
-              var management: DaDataMgmt?,
+             var management: DaDataMgmt?,
         @Embedded(prefix="name_")
-              var name: DaDataName,
+            var name: DaDataName,
         @Displayed(name="Код ОКВЭД")
-        var okved: String?,
+            var okved: String?,
         @Embedded(prefix="opf_")
-              var opf: DaDataOpf?,
+            var opf: DaDataOpf?,
         @Embedded(prefix="state_")
-              var state: DaDataState,
+            var state: DaDataState,
         @Displayed(name="Тип организации")
-        var type: DaDataType
+            var type: DaDataType
               ) {
     constructor(): this(DaDataAddr(),0,DaDataBranchType.MAIN,
             "","","",0,"", DaDataMgmt(), DaDataName(),"", DaDataOpf(), DaDataState(),
@@ -96,9 +117,9 @@ data class Organization (
         get() {field = data?.hid?:field
                 return field}
     fun upd() {
-        hid = data!!.hid
-        inn = data!!.inn
-        address = data!!.address.value
+        hid = data?.hid?:""
+        inn = data?.inn?:""
+        address = data?.address?.value?:""
     }
     var inn: String = data?.inn?:""
         get() {field = data?.inn?:field

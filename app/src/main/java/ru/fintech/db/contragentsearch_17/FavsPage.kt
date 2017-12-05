@@ -31,7 +31,9 @@ class FavsPage : AppCompatActivity() {
         acListAdapter.fetch()
         actv.onItemClickListener =  object: AdapterView.OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                Log.i("34", acListAdapter.getItem(position).name)
+                if (BuildConfig.DEBUG) {
+                    Log.i("34", acListAdapter.getItem(position).name)
+                }
                 //open screen #3
                 ServiceCache.instance.access(position)
                 val intent = Intent(applicationContext, ContragentDetails::class.java)

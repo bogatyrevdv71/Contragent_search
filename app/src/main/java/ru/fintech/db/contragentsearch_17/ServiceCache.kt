@@ -23,7 +23,7 @@ interface ListCallback {
 
 class ServiceCache : ServiceCacheInterface {
 
-    @Database(entities = arrayOf(Organization::class, DaData::class), version = 3)
+    @Database(entities = arrayOf(Organization::class, DaData::class), version = 6)
     @TypeConverters(DatetimeConverter::class)
     abstract class AppDatabase : RoomDatabase() {
         abstract fun orgDao(): OrganizationsDao
