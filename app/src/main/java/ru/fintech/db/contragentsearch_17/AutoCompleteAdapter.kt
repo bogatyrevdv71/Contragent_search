@@ -5,18 +5,27 @@ import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.TextView
+import android.widget.*
 
 /**
  * Created by DB on 30.11.2017.
  *
  */
 class AutoCompleteAdapter (private val context: Context,
-                           private val svc: ServiceCacheInterface) : BaseAdapter(),
-        Filterable {
+                           private val svc: ServiceCacheInterface,
+                           private val is_faves: Boolean = false) : BaseAdapter(),
+        Filterable, ListCallback {
+
+    override fun ready(v: List<Organization>) {
+        mResults = v
+        notifyDataSetChanged()
+    }
+
+    fun fetch() {
+        if (!is_faves) return
+        svc.listAll(this)
+    }
+
     var mResults : List<Organization> = ArrayList<Organization>()
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
@@ -26,6 +35,12 @@ class AutoCompleteAdapter (private val context: Context,
         cv.findViewById<TextView>(R.id.name).text = org.name
         cv.findViewById<TextView>(R.id.inn).text = org.inn
         cv.findViewById<TextView>(R.id.address).text = org.address
+        val btn = cv.findViewById<ImageView>(R.id.isfav)
+        if (is_faves && org.faved) {
+            btn.visibility = View.VISIBLE
+        } else {
+            btn.visibility = View.GONE
+        }
         return cv
     }
 

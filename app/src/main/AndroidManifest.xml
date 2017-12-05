@@ -27,6 +27,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ru.fintech.db.contragentsearch_17.MainActivity" />
         </activity>
+        <activity
+            android:name=".ContragentDetails"
+            android:label="@string/title_activity_contragent_details"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ru.fintech.db.contragentsearch_17.FavsPage" />
+        </activity>
     </application>
 
 </manifest>

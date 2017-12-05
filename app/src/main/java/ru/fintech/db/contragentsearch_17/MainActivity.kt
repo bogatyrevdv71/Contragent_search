@@ -38,14 +38,20 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        ServiceCache.instance.init(applicationContext)
         setContentView(R.layout.activity_main)
         acListAdapter = AutoCompleteAdapter(applicationContext,
-              ServiceCache.instance)
+              ServiceCache.instance.onlineInterface)
         val actv = findViewById<AutoCompleteTextView>(R.id.autocomplete)
         actv.setAdapter(acListAdapter)
         actv.onItemClickListener = object: AdapterView.OnItemClickListener {
             override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                Log.i("12", acListAdapter.getItem(position).name)
+                //open screen #3
+                ServiceCache.instance.cache(position)
+                val intent = Intent(this@MainActivity, ContragentDetails::class.java)
+                intent.putExtra(Intent.EXTRA_TEXT, acListAdapter.getItem(position).hid)
+                startActivity(intent)
             }
 
         }
