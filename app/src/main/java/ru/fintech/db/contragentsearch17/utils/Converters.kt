@@ -1,6 +1,8 @@
-package ru.fintech.db.contragentsearch_17
+package ru.fintech.db.contragentsearch17.utils
 
 import android.arch.persistence.room.TypeConverter
+import ru.fintech.db.contragentsearch17.dataModel.DaData
+import ru.fintech.db.contragentsearch17.dataModel.DaData.*
 import java.util.*
 
 
@@ -10,7 +12,7 @@ import java.util.*
  *
  */
 
-class DatetimeConverter {
+class Converters {
         @TypeConverter
         fun fromTimestamp(value: Long?): Date? {
             return if (value == null) null else Date(value)
@@ -22,7 +24,7 @@ class DatetimeConverter {
         }
 
         @TypeConverter
-        fun fromBrT(v: DaDataBranchType) : Int {
+        fun fromBrT(v: DaData.DaDataBranchType) : Int {
             return v.ordinal
         }
         @TypeConverter
@@ -30,13 +32,13 @@ class DatetimeConverter {
             return v.ordinal
         }
         @TypeConverter
-        fun fromT(v: DaDataType) : Int {
+        fun fromT(v: DaData.DaDataType) : Int {
             return v.ordinal
         }
 
         @TypeConverter
-        fun toBrT(v: Int): DaDataBranchType{
-            return DaDataBranchType.values()[v]
+        fun toBrT(v: Int): DaData.DaDataBranchType {
+            return DaData.DaDataBranchType.values()[v]
         }
         @TypeConverter
         fun toSt(v: Int):DaDataStatus {

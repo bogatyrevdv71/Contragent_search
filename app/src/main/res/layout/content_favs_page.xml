@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="ru.fintech.db.contragentsearch_17.FavsPage"
+    tools:context="ru.fintech.db.contragentsearch17.FavsPage"
     tools:showIn="@layout/activity_favs_page">
 
     <ListView

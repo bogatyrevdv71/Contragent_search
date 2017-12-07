@@ -1,4 +1,4 @@
-package ru.fintech.db.contragentsearch_17
+package ru.fintech.db.contragentsearch17
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4

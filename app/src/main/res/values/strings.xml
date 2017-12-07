@@ -2,4 +2,8 @@
     <string name="app_name">ContragentSearch_17</string>
     <string name="title_activity_favs_page">Favorites</string>
     <string name="title_activity_contragent_details">Детали</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="map">Map</string>
+    <string name="delete">Delete</string>
+    <string name="favorite">Favorite</string>
 </resources>
