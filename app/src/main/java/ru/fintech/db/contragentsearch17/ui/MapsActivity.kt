@@ -1,17 +1,17 @@
-package ru.fintech.db.contragentsearch17
+package ru.fintech.db.contragentsearch17.ui
 
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.widget.Toast
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import ru.fintech.db.contragentsearch17.BuildConfig
+import ru.fintech.db.contragentsearch17.R
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -33,7 +33,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             place = LatLng(lat, lon)
         }
         catch (e: Exception) {
-            Toast.makeText(applicationContext, "Place invalid", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, getString(R.string.place_invalid), Toast.LENGTH_SHORT).show()
             finish()
         }
         name=intent.getStringExtra("Name")

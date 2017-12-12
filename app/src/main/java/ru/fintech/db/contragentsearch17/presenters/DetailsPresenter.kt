@@ -1,13 +1,14 @@
 package ru.fintech.db.contragentsearch17.presenters
 
 import android.content.Context
-import android.content.res.Resources
+import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import ru.fintech.db.contragentsearch17.App
+import ru.fintech.db.contragentsearch17.AppModule
 import ru.fintech.db.contragentsearch17.R
 import ru.fintech.db.contragentsearch17.dataModel.Organization
 import ru.fintech.db.contragentsearch17.db.CacheInterface
@@ -20,23 +21,21 @@ import javax.inject.Inject
  * Created by DB on 07.12.2017.
  *
  */
-class DetailsPresenter  (ctx: Context,
+class DetailsPresenter  (val ctx: Context,
                          frag: Int,
                          val name: Int,
-                         val value: Int) : ArrayAdapter<Map.Entry<String, String>>(ctx, frag, name)
+                         val value: Int) : ArrayAdapter<Map.Entry<Int, String>>(ctx, frag, name)
 {
     @Inject lateinit var svc : CacheInterface
     @Inject lateinit var www : DaDataApi
     init {
-        App.injector.inject(this)
+        AppModule.injector.inject(this)
     }
     var org = Organization()
-    val resources : Resources = ctx.resources
     lateinit var fav: MenuItem
     lateinit var map: MenuItem
-    @Suppress("DEPRECATION")
     fun showFave() {
-        fav.icon = resources.getDrawable(
+        fav.icon = ContextCompat.getDrawable(ctx,
         if (org.faved)
             android.R.drawable.star_big_on
         else
@@ -53,7 +52,7 @@ class DetailsPresenter  (ctx: Context,
     }
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val v = super.getView(position, convertView, parent)
-        v.findViewById<TextView>(R.id.item_name).text = getItem(position).key
+        v.findViewById<TextView>(R.id.item_name).text = context.getString(getItem(position).key)
         v.findViewById<TextView>(R.id.item_value).text = getItem(position).value
         return v
     }
@@ -92,16 +91,25 @@ class DetailsPresenter  (ctx: Context,
             val dat = svc.getDetails(hid)
             org.data = dat
         }, {refresh()
-            UnitTask({
-                val q = www.suggestOrganizations(org.name)
-                if (q != null)
-                    for (o in q) {
-                        if (o.hid==org.hid) {
-                            org = o
-                            break
-                        }
+            www.suggestOrganizationsAsync(org.name, { list: List<Organization>?,
+                                                      i: Int, throwable: Throwable? ->
+                if (throwable != null) {
+                    //make toast
+                    Log.e("DetailsPresenter", "inet access error", throwable)
+                    return@suggestOrganizationsAsync
+                }
+                if (list == null) {
+                    Log.e("DetailsPresenter", "inet access error: error code #"+i.toString())
+                    return@suggestOrganizationsAsync
+                }
+                for (o in list) {
+                    if (o.hid == org.hid){
+                        org = o
+                        break
                     }
-            }, {refresh()}).execute()
+                }
+                refresh()
+            })
         }).execute()
 
 

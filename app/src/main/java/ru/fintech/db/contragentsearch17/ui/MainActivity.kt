@@ -1,18 +1,16 @@
-package ru.fintech.db.contragentsearch17
+package ru.fintech.db.contragentsearch17.ui
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.view.Menu
-import android.widget.AutoCompleteTextView
-import android.view.MenuItem
 import android.content.Intent
-import dagger.Module
-import dagger.Provides
-import ru.fintech.db.contragentsearch17.presenters.AutoCompleteAdapter
+import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.AutoCompleteTextView
+import ru.fintech.db.contragentsearch17.AppModule
+import ru.fintech.db.contragentsearch17.R
+import ru.fintech.db.contragentsearch17.adapters.AutoCompleteAdapter
 import ru.fintech.db.contragentsearch17.presenters.SuggestClickListener
-import javax.inject.Singleton
 
-@Module
 class MainActivity : AppCompatActivity() {
 
     lateinit var acListAdapter : AutoCompleteAdapter
@@ -26,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         // Handle item selection
         return when (item.itemId) {
             R.id.favs -> {
-                val intent = Intent(this, FavsPage::class.java)
+                val intent = Intent(this, FavsActivity::class.java)
                 startActivity(intent)
                 true
             }
@@ -35,12 +33,11 @@ class MainActivity : AppCompatActivity() {
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        App.init(this)
+        AppModule.init(this.application)
         setContentView(R.layout.activity_main)
         acListAdapter = AutoCompleteAdapter(applicationContext)
         val actv = findViewById<AutoCompleteTextView>(R.id.autocomplete)
         actv.setAdapter(acListAdapter)
         actv.onItemClickListener = SuggestClickListener(acListAdapter, this)
     }
-    @Provides @Singleton fun provideContext() = applicationContext
 }

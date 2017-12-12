@@ -1,6 +1,8 @@
 package ru.fintech.db.contragentsearch17.utils
 
 import dagger.Component
+import ru.fintech.db.contragentsearch17.adapters.AutoCompleteAdapter
+import ru.fintech.db.contragentsearch17.adapters.OrganizationListAdapter
 import ru.fintech.db.contragentsearch17.db.DatabaseService
 import ru.fintech.db.contragentsearch17.presenters.*
 import javax.inject.Singleton

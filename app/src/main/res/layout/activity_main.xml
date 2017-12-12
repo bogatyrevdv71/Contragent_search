@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:menu="main_activity_menu"
-    tools:context="ru.fintech.db.contragentsearch17.MainActivity"
+    tools:context="ru.fintech.db.contragentsearch17.ui.MainActivity"
     android:orientation="vertical">
     <AutoCompleteTextView
         android:id="@+id/autocomplete"

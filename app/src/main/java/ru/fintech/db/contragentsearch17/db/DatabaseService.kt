@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.arch.persistence.room.TypeConverters
 import android.content.Context
-import ru.fintech.db.contragentsearch17.App
+import ru.fintech.db.contragentsearch17.AppModule
 import ru.fintech.db.contragentsearch17.dataModel.DaData
 import ru.fintech.db.contragentsearch17.dataModel.Organization
 import ru.fintech.db.contragentsearch17.utils.Converters
@@ -23,12 +23,13 @@ class DatabaseService @Inject constructor() : CacheInterface {
     private var suggested : Organization? = null
     override fun suggested() = suggested
 
-    @Inject lateinit var ctx: Context
     private var dao: OrganizationsDao
     private var dadao: DaDataDao
 
+    @Inject lateinit var ctx: Context
+
     init{
-        App.injector.inject(this)
+        AppModule.injector.inject(this)
         val db = Room.databaseBuilder(ctx, AppDatabase::class.java, "db-kurs")
                 .fallbackToDestructiveMigration().build()
         dao = db.orgDao()

@@ -1,5 +1,6 @@
 package ru.fintech.db.contragentsearch17.db
 
+import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.*
 import ru.fintech.db.contragentsearch17.dataModel.Organization
 
@@ -9,7 +10,7 @@ interface OrganizationsDao {
     fun getByHid(hid: String) : Organization?
 
     @Query("SELECT * from organization ORDER BY faved DESC, last_access DESC")
-    fun getAll() : List<Organization>
+    fun getAll() : LiveData<List<Organization>>
 
     @Query("UPDATE organization SET faved=:faved WHERE hid=:hid")
     fun setFave(hid: String, faved: Boolean)

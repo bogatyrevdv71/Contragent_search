@@ -1,16 +1,14 @@
 package ru.fintech.db.contragentsearch17.presenters
 
-import android.content.Context
 import android.content.Intent
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.ContextCompat.startActivity
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
-import ru.fintech.db.contragentsearch17.App
+import ru.fintech.db.contragentsearch17.AppModule
 import ru.fintech.db.contragentsearch17.BuildConfig
-import ru.fintech.db.contragentsearch17.ContragentDetails
-import ru.fintech.db.contragentsearch17.FavsPage
+import ru.fintech.db.contragentsearch17.ui.DetailsActivity
+import ru.fintech.db.contragentsearch17.ui.FavsActivity
+import ru.fintech.db.contragentsearch17.adapters.OrganizationListAdapter
 import ru.fintech.db.contragentsearch17.db.CacheInterface
 import ru.fintech.db.contragentsearch17.utils.UnitTask
 import javax.inject.Inject
@@ -20,10 +18,10 @@ import javax.inject.Inject
  *
  */
 class DetailsClickListener(val adapter: OrganizationListAdapter,
-                           val ac : FavsPage) : AdapterView.OnItemClickListener {
+                           val ac : FavsActivity) : AdapterView.OnItemClickListener {
 
     init {
-        App.injector.inject(this)
+        AppModule.injector.inject(this)
     }
     @Inject lateinit var svc: CacheInterface
     var ctx = ac.applicationContext
@@ -35,7 +33,7 @@ class DetailsClickListener(val adapter: OrganizationListAdapter,
         }
         //open screen #3
         UnitTask({svc.updateCache(org)}).execute()
-        val intent = Intent(ctx, ContragentDetails::class.java)
+        val intent = Intent(ctx, DetailsActivity::class.java)
         intent.putExtra(Intent.EXTRA_TEXT, adapter.getItem(position).hid)
         intent.type="text/plain"
         ac.startActivity(intent)

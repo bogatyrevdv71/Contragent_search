@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="branch_count">Количество филиалов</string>
+    <string name="branch_type">Тип подразделени</string>
+    <string name="inn">ИНН</string>
+    <string name="kpp">КПП</string>
+    <string name="ogrn">ОГРН</string>
+    <string name="ogrn_date">Дата выдачи ОГРН</string>
+    <string name="okved">Код ОКВЭД</string>
+    <string name="type">Тип организации</string>
+    <string name="actuality_date">Дата актуальности сведений</string>
+    <string name="registration_date">Дата регистрации</string>
+    <string name="liquidation_date">Дата ликвидации</string>
+    <string name="status">Статус организации</string>
+    <string name="name">ФИО руководителя</string>
+    <string name="post">Должность руководителя</string>
+    <string name="full_with_opf">Полное наименование с ОПФ</string>
+    <string name="short_with_opf">Краткое наименование с ОПФ</string>
+    <string name="latin">Наименование на латинице</string>
+    <string name="full_name">Полное наименование</string>
+    <string name="short_name">Краткое наименование</string>
+    <string name="code">Код ОКОПФ</string>
+    <string name="full_opf">Полное название ОПФ</string>
+    <string name="short_opf">Краткое название ОПФ</string>
+    <string name="adress">Адрес</string>
+    <string name="full_adress">Полный адрес</string>
+</resources>

@@ -1,11 +1,13 @@
-package ru.fintech.db.contragentsearch17.presenters
+package ru.fintech.db.contragentsearch17.adapters
 
 import android.content.Context
+import android.util.Log
 import android.widget.Filter
 import android.widget.Filterable
-import ru.fintech.db.contragentsearch17.App
+import ru.fintech.db.contragentsearch17.AppModule
 import ru.fintech.db.contragentsearch17.dataModel.Organization
 import ru.fintech.db.contragentsearch17.inet.DaDataApi
+import ru.fintech.db.contragentsearch17.inet.InetException
 import javax.inject.Inject
 
 /**
@@ -15,7 +17,7 @@ import javax.inject.Inject
 class AutoCompleteAdapter (context: Context) : OrganizationAdapter(context),
             Filterable{
     init {
-        App.injector.inject(this)
+        AppModule.injector.inject(this)
     }
     @Inject
     lateinit var svc: DaDataApi //TODO: mb split it to 'OrgProvider' & 'AddrProvider'?
@@ -23,9 +25,14 @@ class AutoCompleteAdapter (context: Context) : OrganizationAdapter(context),
         override fun performFiltering(constraint: CharSequence?): FilterResults {
             val res = FilterResults()
             constraint?.let{
-                val ret = svc.suggestOrganizations(constraint.toString())
-                res.values = ret
-                res.count = ret?.size?:0
+                try {
+                    val ret = svc.suggestOrganizations(constraint.toString())
+                    res.values = ret
+                    res.count = ret?.size ?: 0
+                }
+                catch (e: InetException) {
+                    Log.e("Suggests", "Error getting suggests", e)
+                }
             }
             return res
         }

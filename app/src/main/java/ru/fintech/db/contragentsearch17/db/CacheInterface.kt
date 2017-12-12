@@ -1,5 +1,6 @@
 package ru.fintech.db.contragentsearch17.db
 
+import android.arch.lifecycle.LiveData
 import ru.fintech.db.contragentsearch17.dataModel.DaData
 import ru.fintech.db.contragentsearch17.dataModel.Organization
 
@@ -9,7 +10,7 @@ import ru.fintech.db.contragentsearch17.dataModel.Organization
  */
 interface CacheInterface {
     fun delete(hid: String)
-    fun list(): List<Organization>
+    fun list(): LiveData<List<Organization>>
     fun getDetails(hid: String): DaData?
     fun updateCache(o: Organization)
     fun setFav(hid: String, isFaved: Boolean)

@@ -7,6 +7,8 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 26
     defaultConfig {
+        buildConfigField "String", "TOKEN", "\"9c780075e250e5090a9ee99a48073b619c3f6d70\""
+        buildConfigField "String", "URL", "\"https://suggestions.dadata.ru/suggestions/api/4_1/rs/\""
         applicationId "ru.fintech.db.contragentsearch_17"
         minSdkVersion 15
         targetSdkVersion 26
@@ -39,6 +41,8 @@ dependencies {
 
     compile 'com.google.dagger:dagger:2.13'
     kapt 'com.google.dagger:dagger-compiler:2.13'
+
+    implementation "android.arch.lifecycle:extensions:1.0.0"
 
     implementation 'com.squareup.okhttp3:okhttp:3.9.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.0'

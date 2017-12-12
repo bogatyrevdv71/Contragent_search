@@ -1,20 +1,18 @@
-package ru.fintech.db.contragentsearch17
+package ru.fintech.db.contragentsearch17.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
 import android.widget.ListView
-
-import kotlinx.android.synthetic.main.activity_contragent_details.*
-import ru.fintech.db.contragentsearch17.dataModel.Organization
+import kotlinx.android.synthetic.main.activity_favs.*
+import ru.fintech.db.contragentsearch17.BuildConfig
+import ru.fintech.db.contragentsearch17.R
 import ru.fintech.db.contragentsearch17.presenters.DetailsPresenter
 
-class ContragentDetails : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity() {
     lateinit var menu: Menu
 
     lateinit var presenter : DetailsPresenter
@@ -58,7 +56,10 @@ class ContragentDetails : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_contragent_details)
+        setContentView(R.layout.activity_details)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         hid = intent.getStringExtra(Intent.EXTRA_TEXT)
         presenter = DetailsPresenter(applicationContext, R.layout.fragment_details_item, R.id.item_value, R.id.item_name)
         presenter.fetch(hid)

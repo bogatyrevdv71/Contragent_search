@@ -1,12 +1,10 @@
 package ru.fintech.db.contragentsearch17.utils
 
-import android.arch.persistence.room.*
 import ru.fintech.db.contragentsearch17.dataModel.Displayed
 import ru.fintech.db.contragentsearch17.dataModel.Traverse
-import kotlin.collections.HashMap
 
 object Utils {
-    fun mapByAnnotations(o: Any?, m1: HashMap<String, String>) : HashMap<String,String> {
+    fun mapByAnnotations(o: Any?, m1: HashMap<Int, String>) : HashMap<Int,String> {
         if (o == null) return m1
         var m = m1
         val fields = o::class.java.declaredFields //.javaClass.declaredFields
@@ -26,7 +24,7 @@ object Utils {
             }
             val emb = field.getAnnotation(Traverse::class.java)
             if (emb is Traverse) {
-                    m = mapByAnnotations(field.get(o), m)
+                m = mapByAnnotations(field.get(o), m)
             }
         }
         return m

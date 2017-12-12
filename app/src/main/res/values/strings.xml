@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">ContragentSearch_17</string>
-    <string name="title_activity_favs_page">Favorites</string>
+    <string name="app_name">Поиск контрагентов</string>
+    <string name="title_activity_favs_page">История</string>
     <string name="title_activity_contragent_details">Детали</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="map">Map</string>
-    <string name="delete">Delete</string>
-    <string name="favorite">Favorite</string>
+    <string name="title_activity_maps">Карта</string>
+    <string name="map">Карта</string>
+    <string name="delete">Удалить</string>
+    <string name="favorite">Избранное</string>
+    <string name="isfaved">В избранном</string>
+    <string name="place_invalid">Место недоступно</string>
+
+
 </resources>
